@@ -1,18 +1,20 @@
 const gameBoard = (() => {
   let board = ["x","x","o","x","o","x","o","o","o"];
 
-  const playMove = (player, location) => {
+  const getBoard = () => board;
+
+  const setBoard = (player, location) => {
     board[location] = player;
   }
 
-  return {playMove};
+  return {getBoard, setBoard};
 })();
 
 const displayController = (() => {
   //const renderBoard = () => {};
 })();
 
-const gameState = (() => {
+const gameController = (() => {
   //const gameOver = false;
 })();
 
