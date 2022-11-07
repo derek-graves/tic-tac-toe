@@ -11,7 +11,17 @@ const gameBoard = (() => {
 })();
 
 const displayController = (() => {
-  //const renderBoard = () => {};
+  const boardElement = document.getElementById('board');
+  const boardSlots = [...boardElement.children];
+
+  const renderBoard = () => {
+    currentBoard = gameBoard.getBoard();
+    for (let i = 0; i <= 8; i++) {
+      boardSlots[i].textContent = currentBoard[i]
+    };
+  }
+  
+  return {renderBoard};
 })();
 
 const gameController = (() => {
