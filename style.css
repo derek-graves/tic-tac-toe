@@ -49,4 +49,17 @@ body {
   align-items: center;
   text-align: center;
   font-size: 48px;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.square:hover {
+  background-color: lightgray;
+}
+
+.square:active {
+  color: #fff;
+  background-color: #000;
 }
