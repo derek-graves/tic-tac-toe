@@ -1,3 +1,13 @@
+const Player = (name, piece) => {
+  //gameState will decide which piece the player is when creating players
+  //const move = () => {};
+
+  const getName = () => name;
+  const getPiece = () => piece;
+
+  return {getName, getPiece};
+}
+
 const gameBoard = (() => {
   let board = ["x","x","o","x","o","x","o","o","o"];
 
@@ -26,12 +36,17 @@ const displayController = (() => {
 
 const gameController = (() => {
   //const gameOver = false;
-})();
+  p1 = Player("me", "x");
+  p2 = Player("you", "o");
 
-const Player = (name, piece) => {
-  //gameState will decide which piece the player is when creating players
-  //const move = () => {};
-}
+  let currentTurn = p1.getPiece();
+
+  const nextTurn = () => {
+    currentTurn = (currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece()
+  }
+
+  return {nextTurn};
+})();
 
 const computerPlayer = (() => {
   //minmax algorithm to create unbeatable AI
