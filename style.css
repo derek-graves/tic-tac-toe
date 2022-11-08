@@ -17,3 +17,36 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+.header {
+  height: 70px; /* temporary; delete later */
+  background-color: gray; /* temporary; delete later */
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-container {
+  width: 400px;
+  height: 400px;
+}
+
+#board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 48px;
+}
