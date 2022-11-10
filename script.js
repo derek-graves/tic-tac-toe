@@ -35,19 +35,27 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  //const gameOver = false;
   p1 = Player("me", "x");
   p2 = Player("you", "o");
 
+  //turn logic
   let currentTurn = p1.getPiece();
-
   const getTurn = () => currentTurn;
-
   const nextTurn = () => {
     currentTurn = (currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece();
-  }
+  };
 
-  return {getTurn, nextTurn};
+  //move logic
+  const playMove = (player, location) => {
+    //may need to translate location, may not
+    //check if move valid, only run the following if valid
+    gameBoard.setBoard(player, location);
+    displayController.renderBoard();
+    //check for win tie, if so: display winner, reset game
+    nextTurn();
+  };
+
+  return {getTurn};
 })();
 
 const computerPlayer = (() => {
