@@ -41,11 +41,13 @@ const gameController = (() => {
 
   let currentTurn = p1.getPiece();
 
+  const getTurn = () => currentTurn;
+
   const nextTurn = () => {
-    currentTurn = (currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece()
+    currentTurn = (currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece();
   }
 
-  return {nextTurn};
+  return {getTurn, nextTurn};
 })();
 
 const computerPlayer = (() => {
