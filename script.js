@@ -46,13 +46,20 @@ const gameController = (() => {
   };
 
   //move logic
-  const playMove = (player, location) => {
+  function playMove() {
     //may need to translate location, may not
     //check if move valid, only run the following if valid
-    gameBoard.setBoard(player, location);
+    gameBoard.setBoard(currentTurn, this.id.slice(-1));
     displayController.renderBoard();
-    //check for win tie, if so: display winner, reset game
+    //check for win or tie, if so: display winner, reset game
     nextTurn();
+
+  };
+
+  //bind playMove to each square
+  const boardSlots = [...document.getElementById('board').children]
+  for (const slot of boardSlots) {
+    slot.onclick = playMove.bind(slot);
   };
 
   return {getTurn};
