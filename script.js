@@ -9,25 +9,25 @@ const Player = (name, piece) => {
 }
 
 const gameBoard = (() => {
-  let board = ["x","x","o","x","o","x","o","o","o"];
+  let _board = ["x","x","o","x","o","x","o","o","o"];
 
-  const getBoard = () => board;
+  const getBoard = () => _board;
 
   const setBoard = (player, location) => {
-    board[location] = player;
+    _board[location] = player;
   }
 
   return {getBoard, setBoard};
 })();
 
 const displayController = (() => {
-  const boardElement = document.getElementById('board');
-  const boardSlots = [...boardElement.children];
+  const _boardElement = document.getElementById('board');
+  const _boardSlots = [..._boardElement.children];
 
   const renderBoard = () => {
-    currentBoard = gameBoard.getBoard();
+    const _currentBoard = gameBoard.getBoard();
     for (let i = 0; i <= 8; i++) {
-      boardSlots[i].textContent = currentBoard[i]
+      _boardSlots[i].textContent = _currentBoard[i]
     };
   }
   
@@ -35,31 +35,31 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  p1 = Player("me", "x");
-  p2 = Player("you", "o");
+  const _p1 = Player("me", "x");
+  const _p2 = Player("you", "o");
 
   //turn logic
-  let currentTurn = p1.getPiece();
+  let _currentTurn = p1.getPiece();
   const getTurn = () => currentTurn;
-  const nextTurn = () => {
-    currentTurn = (currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece();
+  const _nextTurn = () => {
+    _currentTurn = (_currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece();
   };
 
   //move logic
-  function playMove() {
+  function _playMove() {
     //may need to translate location, may not
     //check if move valid, only run the following if valid
-    gameBoard.setBoard(currentTurn, this.id.slice(-1));
+    gameBoard.setBoard(_currentTurn, this.id.slice(-1));
     displayController.renderBoard();
     //check for win or tie, if so: display winner, reset game
-    nextTurn();
+    _nextTurn();
 
   };
 
   //bind playMove to each square
   const boardSlots = [...document.getElementById('board').children]
   for (const slot of boardSlots) {
-    slot.onclick = playMove.bind(slot);
+    slot.onclick = _playMove.bind(slot);
   };
 
   return {getTurn};
