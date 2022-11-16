@@ -9,7 +9,7 @@ const Player = (name, piece) => {
 }
 
 const gameBoard = (() => {
-  let _board = new Array(9);
+  let _board = ["", "", "", "", "", "", "", "", ""];
 
   const getBoard = () => _board;
 
@@ -47,11 +47,20 @@ const gameController = (() => {
 
   //move logic
   function _playMove() {
-    //check if move valid, only run the following if valid
-    gameBoard.setBoard(_currentTurn, this.id.slice(-1));
-    displayController.renderBoard();
-    //check for win or tie, if so: display winner, reset game
-    _nextTurn();
+    const chosenSlot = this.id.slice(-1);
+    const currentBoard = gameBoard.getBoard();
+
+    //play move only if valid
+    if (currentBoard[chosenSlot] === "") {
+      gameBoard.setBoard(_currentTurn, chosenSlot);
+      displayController.renderBoard();
+      //check for win or tie, if so: display winner, reset game
+      _nextTurn();
+    } else {
+      console.log("Move invalid"); //replace later with message displayed on page
+    }
+   
+    
 
   };
 
