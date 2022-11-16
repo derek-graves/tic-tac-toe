@@ -9,7 +9,7 @@ const Player = (name, piece) => {
 }
 
 const gameBoard = (() => {
-  let _board = ["x","x","o","x","o","x","o","o","o"];
+  let _board = new Array(9);
 
   const getBoard = () => _board;
 
@@ -39,15 +39,14 @@ const gameController = (() => {
   const _p2 = Player("you", "o");
 
   //turn logic
-  let _currentTurn = p1.getPiece();
-  const getTurn = () => currentTurn;
+  let _currentTurn = _p1.getPiece();
+  const getTurn = () => _currentTurn;
   const _nextTurn = () => {
-    _currentTurn = (_currentTurn === p1.getPiece()) ? p2.getPiece() : p1.getPiece();
+    _currentTurn = (_currentTurn === _p1.getPiece()) ? _p2.getPiece() : _p1.getPiece();
   };
 
   //move logic
   function _playMove() {
-    //may need to translate location, may not
     //check if move valid, only run the following if valid
     gameBoard.setBoard(_currentTurn, this.id.slice(-1));
     displayController.renderBoard();
