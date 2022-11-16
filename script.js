@@ -59,18 +59,34 @@ const gameController = (() => {
     } else {
       console.log("Move invalid"); //replace later with message displayed on page
     }
-   
-    
-
   };
 
   //bind playMove to each square
-  const boardSlots = [...document.getElementById('board').children]
-  for (const slot of boardSlots) {
+  const _boardSlots = [...document.getElementById('board').children]
+  for (const slot of _boardSlots) {
     slot.onclick = _playMove.bind(slot);
   };
 
   return {getTurn};
+})();
+
+const winConditions = (() => {
+  const currentBoard = gameBoard.getBoard();
+  
+  const _horizontal = () => {
+  };
+
+  const _vertical = () => {
+  };
+
+  const _diagonal = () => {
+  };
+
+  const checkWin = () => {
+    return (_horizontal() || _vertical || _diagonal);
+  };
+
+  return {checkWin};
 })();
 
 const computerPlayer = (() => {
