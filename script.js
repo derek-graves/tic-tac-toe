@@ -1,6 +1,4 @@
 const Player = (name, piece) => {
-  //gameState will decide which piece the player is when creating players
-  //const move = () => {};
 
   const getName = () => name;
   const getPiece = () => piece;
@@ -9,12 +7,12 @@ const Player = (name, piece) => {
 }
 
 const gameBoard = (() => {
-  let _board = ["", "", "", "", "", "", "", "", ""];
+  let _board = [["", "", ""], ["", "", ""], ["", "", ""]];
 
   const getBoard = () => _board;
 
-  const setBoard = (player, location) => {
-    _board[location] = player;
+  const setBoard = (player, row, column) => {
+    _board[row][column] = player;
   }
 
   return {getBoard, setBoard};
@@ -25,7 +23,7 @@ const displayController = (() => {
   const _boardSlots = [..._boardElement.children];
 
   const renderBoard = () => {
-    const _currentBoard = gameBoard.getBoard();
+    const _currentBoard = gameBoard.getBoard().flat();
     for (let i = 0; i <= 8; i++) {
       _boardSlots[i].textContent = _currentBoard[i]
     };
@@ -47,12 +45,14 @@ const gameController = (() => {
 
   //move logic
   function _playMove() {
-    const chosenSlot = this.id.slice(-1);
+    const chosenSlot = this.id.slice(-2);
+    const chosenRow = chosenSlot.slice(0,1);
+    const chosenCol = chosenSlot.slice(-1);
     const currentBoard = gameBoard.getBoard();
 
     //play move only if valid
-    if (currentBoard[chosenSlot] === "") {
-      gameBoard.setBoard(_currentTurn, chosenSlot);
+    if (currentBoard[chosenRow][chosenCol] === "") {
+      gameBoard.setBoard(_currentTurn, chosenRow, chosenCol);
       displayController.renderBoard();
       //check for win or tie, if so: display winner, reset game
       _nextTurn();
