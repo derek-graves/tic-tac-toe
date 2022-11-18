@@ -73,17 +73,60 @@ const gameController = (() => {
 const winConditions = (() => {
   const currentBoard = gameBoard.getBoard();
   
-  const _horizontal = () => {
+  const _horizontal = (player, row) => {
+    for (let i = 0; i <= 2; i++) {
+      if (currentBoard[row][i] !== player) {
+        return false;
+      }
+      if (i == 2) {
+        return true;
+      }
+    }
   };
 
-  const _vertical = () => {
+  const _vertical = (player, col) => {
+    for (let i = 0; i <= 2; i++) {
+      if (currentBoard[i][col] !== player) {
+        return false;
+      }
+      if (i == 2) {
+        return true;
+      }
+    }
   };
 
-  const _diagonal = () => {
+  const _diagonal = (player, row, col) => {
+    if (row === col) {
+      for (let i = 0; i <= 2; i++) {
+        if (currentBoard[i][i] !== player) {
+          return false;
+        }
+        if (i == 2) {
+          return true;
+        }
+      }
+    }
+    return false;
   };
 
-  const checkWin = () => {
-    return (_horizontal() || _vertical || _diagonal);
+  const _antidiagonal = (player, row, col) => {
+    if (parseInt(row) + parseInt(col) === 2) {
+      if (row === col) {
+        for (let i = 0; i <= 2; i++) {
+          if (currentBoard[i][2 - i] !== player) {
+            return false;
+          }
+          if (i == 2) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+  };
+
+  const checkWin = (player, row, col) => {
+    return (_horizontal(player, row) || _vertical(player, col) || _diagonal(player, row, col) || _antidiagonal(player, row, col));
   };
 
   return {checkWin};
