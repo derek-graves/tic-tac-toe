@@ -54,7 +54,18 @@ const gameController = (() => {
     if (currentBoard[chosenRow][chosenCol] === "") {
       gameBoard.setBoard(_currentTurn, chosenRow, chosenCol);
       displayController.renderBoard();
+
+
       //check for win or tie, if so: display winner, reset game
+      const winner = winConditions.checkWin(_currentTurn, chosenRow, chosenCol);
+      if (winner) {
+        console.log("We have a winner!") //replace later with message displayed on page
+      }
+      const numMoves = currentBoard.flat().filter(slot => slot !== "").length;
+      if (numMoves === 8) {
+        console.log("It's a tie!") //replace later with message displayed on page
+      }
+
       _nextTurn();
     } else {
       console.log("Move invalid"); //replace later with message displayed on page
