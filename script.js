@@ -121,8 +121,8 @@ const winConditions = (() => {
           }
         }
       }
-      return false;
     }
+    return false;
   };
 
   const checkWin = (player, row, col) => {
