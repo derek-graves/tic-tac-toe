@@ -16,18 +16,26 @@ button {
 body {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.header {
-  height: 70px; /* temporary; delete later */
-  background-color: gray; /* temporary; delete later */
-}
-
-.main-content {
+.message-container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.message {
+  font-size: 42px;
+  margin: 50px 0px;
+}
+
+.game-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .board-container {
