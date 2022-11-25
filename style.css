@@ -18,6 +18,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(150deg,#FFEF78, #62C9B4, #97D8F3);
 }
 
 .message-container {
@@ -38,9 +39,22 @@ body {
   justify-content: center;
 }
 
+.game-space {
+  display: flex;
+  align-items: center;
+  background-color: #ddd;
+  border-radius: 20px;
+  padding: 50px;
+}
+
+.options {
+  width: 200px;
+}
+
 .board-container {
   width: 400px;
   height: 400px;
+  overflow: scroll;
 }
 
 #board {
