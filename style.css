@@ -18,7 +18,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(150deg,#FFEF78, #62C9B4, #97D8F3);
+  background: linear-gradient(150deg,#FFEF78, #62C9B4 60%, #97D8F3);
 }
 
 .message-container {
@@ -42,9 +42,13 @@ body {
 .game-space {
   display: flex;
   align-items: center;
-  background-color: #ddd;
+  background: rgba(255,255,255,0.25);
   border-radius: 20px;
   padding: 50px;
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
 }
 
 .options {
