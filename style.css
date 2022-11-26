@@ -43,6 +43,7 @@ body {
   display: flex;
   align-items: center;
   background: rgba(255,255,255,0.25);
+  background-attachment: fixed;
   border-radius: 20px;
   padding: 50px;
 
@@ -82,10 +83,23 @@ body {
 }
 
 .square:hover {
-  background-color: lightgray;
+  background-color: rgba(255,255,255,0.3);
 }
 
 .square:active {
   color: #fff;
   background-color: #000;
+}
+
+#slot00, #slot01, #slot10, #slot11 {
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+#slot02, #slot12 {
+ border-bottom: 2px solid #000;
+}
+
+#slot20, #slot21 {
+  border-right: 2px solid #000;
 }
