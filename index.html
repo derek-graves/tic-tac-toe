@@ -14,7 +14,22 @@
   </div>
   <div class="game-container">
     <div class="game-space">
-      <div class="options"></div>
+      <div class="options">
+        <div class="name">
+          <label for="player1">Player 1</label>
+          <input type="text" name="player1" id="player1">
+        </div>
+        <div class="name">
+          <label for="player2">Player 2</label>
+          <input type="text" name="player2" id="player2">
+        </div>
+        <div class="opponent-choice">
+          <div class="opponent-text">PVP</div>
+          <input type="checkbox" name="opponent" id="opponent">
+          <div class="opponent-text">PVE</div>
+        </div>
+        <button id="start">Start</button>
+      </div>
       <div class="board-container">
         <div id="board">
           <div class="square" id="slot00"></div>
