@@ -2,8 +2,15 @@
 @font-face {
   font-family: 'Libre Franklin';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   src: url(./assets/fonts/LibreFranklin.ttf);
+}
+
+@font-face {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/Rubik.ttf);
 }
 
 
@@ -39,8 +46,9 @@ body {
 }
 
 .message {
-  font-size: 42px;
-  margin: 50px 0px;
+  font-family: Rubik;
+  font-size: 60px;
+  margin: 44px 0px;
 }
 
 .game-container {
