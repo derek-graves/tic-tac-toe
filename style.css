@@ -110,14 +110,14 @@ body {
 }
 
 #slot00, #slot01, #slot10, #slot11 {
-  border-bottom: 2px solid #000;
-  border-right: 2px solid #000;
+  border-bottom: 3px solid #000;
+  border-right: 3px solid #000;
 }
 
 #slot02, #slot12 {
- border-bottom: 2px solid #000;
+ border-bottom: 3px solid #000;
 }
 
 #slot20, #slot21 {
-  border-right: 2px solid #000;
+  border-right: 3px solid #000;
 }
