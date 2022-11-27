@@ -1,3 +1,13 @@
+/* fonts */
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/LibreFranklin.ttf);
+}
+
+
+
 /* resets and view */
 * {
   box-sizing: border-box;
@@ -75,7 +85,8 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-size: 48px;
+  font-family: 'Libre Franklin';
+  font-size: 60px;
 
   user-select: none;
   -webkit-user-select: none;
