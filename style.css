@@ -13,8 +13,6 @@
   src: url(./assets/fonts/Rubik.ttf);
 }
 
-
-
 /* resets and view */
 * {
   box-sizing: border-box;
@@ -62,6 +60,7 @@ body {
   align-items: center;
   background: rgba(255,255,255,0.25);
   background-attachment: fixed;
+  box-shadow: 0 4px 30px rgba(255,255,255,0.1);
   border-radius: 20px;
   padding: 50px;
 
