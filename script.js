@@ -186,14 +186,12 @@ const winConditions = (() => {
 
   const _antidiagonal = (player, row, col) => {
     if (parseInt(row) + parseInt(col) === 2) {
-      if (row === col) {
-        for (let i = 0; i <= 2; i++) {
-          if (currentBoard[i][2 - i] !== player) {
-            return false;
-          }
-          if (i == 2) {
-            return true;
-          }
+      for (let i = 0; i <= 2; i++) {
+        if (currentBoard[i][2 - i] !== player) {
+          return false;
+        }
+        if (i == 2) {
+          return true;
         }
       }
     }
