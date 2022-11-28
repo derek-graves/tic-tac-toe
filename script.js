@@ -33,8 +33,10 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  const _p1 = Player("me", "x");
-  const _p2 = Player("you", "o");
+  let  _p1 = Player("", "x");
+  let  _p2 = Player("", "o");
+  let _opponent = false; //false for player v. player, true for player v. computer
+  let _gameInProgress = false;
 
   //turn logic
   let _currentTurn = _p1.getPiece();
@@ -51,10 +53,9 @@ const gameController = (() => {
     const currentBoard = gameBoard.getBoard();
 
     //play move only if valid
-    if (currentBoard[chosenRow][chosenCol] === "") {
+    if ((currentBoard[chosenRow][chosenCol] === "") && (_gameInProgress)) {
       gameBoard.setBoard(_currentTurn, chosenRow, chosenCol);
       displayController.renderBoard();
-
 
       //check for win or tie, if so: display winner, reset game
       const winner = winConditions.checkWin(_currentTurn, chosenRow, chosenCol);
@@ -65,8 +66,8 @@ const gameController = (() => {
       if (numMoves === 8) {
         console.log("It's a tie!") //replace later with message displayed on page
       }
-
       _nextTurn();
+
     } else {
       console.log("Move invalid"); //replace later with message displayed on page
     }
@@ -77,6 +78,31 @@ const gameController = (() => {
   for (const slot of _boardSlots) {
     slot.onclick = _playMove.bind(slot);
   };
+
+  //start logic
+  function _start() {
+    //create players and disable player input
+    const player1 = document.getElementById("player1");
+    const player2 = document.getElementById("player2");
+    _p1 = Player(player1.value, 'x');
+    _p2 = Player(player2.value, 'o');
+    player1.disabled = true;
+    player2.disabled = true;
+
+    //pick mode and disable mode toggle
+    const opponentToggle = document.getElementById("opponent");
+    _opponent = opponentToggle.checked;
+    opponentToggle.disabled = true;
+
+    //disable start button and enable play
+    document.getElementById("start").disabled = true;
+    _gameInProgress = true;
+  }
+  //
+  const startButton = document.getElementById("start");
+  startButton.onclick = _start;
+
+  //reset logic
 
   return {getTurn};
 })();
