@@ -15,7 +15,11 @@ const gameBoard = (() => {
     _board[row][column] = player;
   }
 
-  return {getBoard, setBoard};
+  const resetBoard = () => {
+    _board = [["", "", ""], ["", "", ""], ["", "", ""]];
+  }
+
+  return {getBoard, setBoard, resetBoard};
 })();
 
 const displayController = (() => {
@@ -39,7 +43,7 @@ const gameController = (() => {
   let _gameInProgress = false;
 
   //turn logic
-  let _currentTurn = _p1.getPiece();
+  let _currentTurn = null;
   const getTurn = () => _currentTurn;
   const _nextTurn = () => {
     _currentTurn = (_currentTurn === _p1.getPiece()) ? _p2.getPiece() : _p1.getPiece();
@@ -89,6 +93,9 @@ const gameController = (() => {
     player1.disabled = true;
     player2.disabled = true;
 
+    //set currentTurn
+    _currentTurn = _p1.getPiece();
+
     //pick mode and disable mode toggle
     const opponentToggle = document.getElementById("opponent");
     _opponent = opponentToggle.checked;
@@ -98,11 +105,42 @@ const gameController = (() => {
     document.getElementById("start").disabled = true;
     _gameInProgress = true;
   }
-  //
-  const startButton = document.getElementById("start");
-  startButton.onclick = _start;
+  //run _start on start button click
+  const _startButton = document.getElementById("start");
+  _startButton.onclick = _start;
 
   //reset logic
+  function _reset() {
+    //clear players and enable player input
+    _p1 = null;
+    _p2 = null;
+    const player1 = document.getElementById("player1");
+    const player2 = document.getElementById("player2");
+    player1.value = "";
+    player2.value = "";
+    player1.disabled = false;
+    player2.disabled = false;
+
+    //reset opponent and enable opponent choice
+    _opponent = false;
+    const opponentToggle = document.getElementById("opponent");
+    opponentToggle.disabled = false;
+
+    //clear board and message
+    gameBoard.resetBoard();
+    displayController.renderBoard();
+    document.getElementById("message").textContent = "";
+    
+    //reset current turn
+    _currentTurn = null;
+
+    //disable play, enable start
+    _gameInProgress = false;
+    document.getElementById("start").disabled = false;
+  }
+  //run _reset on reset button click
+  const _resetButton = document.getElementById("reset");
+  _resetButton.onclick = _reset;
 
   return {getTurn};
 })();
