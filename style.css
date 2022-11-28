@@ -43,7 +43,7 @@ body {
   align-items: center;
 }
 
-.message {
+#message {
   font-family: Rubik;
   font-size: 60px;
   margin: 44px 0px;
