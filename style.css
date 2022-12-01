@@ -71,6 +71,24 @@ body {
 
 .options {
   width: 200px;
+  height: 70%;
+
+  margin-right: 60px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+}
+
+.opponent-choice {
+  display: flex;
+  gap: 6px;
 }
 
 .board-container {
