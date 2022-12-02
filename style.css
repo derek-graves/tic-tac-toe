@@ -73,12 +73,21 @@ body {
   width: 200px;
   height: 70%;
 
+  background: rgba(255,255,255,0.4);
+  background-attachment: fixed;
+
   margin-right: 60px;
+  padding: 20px;
+  border-radius: 20px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 30px;
+}
+
+.name:first-child {
+  margin-bottom: 6px;
 }
 
 .name {
