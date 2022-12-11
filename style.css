@@ -64,21 +64,9 @@ body {
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
-  background: linear-gradient(150deg,#FFEF78, #62C9B4 60%, #97D8F3);
-}
-
-.message-container {
-  width: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#message {
-  font-family: Rubik;
-  font-size: 60px;
-  margin: 44px 0px;
+  background: linear-gradient(150deg,#FFEF78, #62C9B4 60%, #97D8F3);
 }
 
 .game-container {
