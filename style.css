@@ -94,7 +94,7 @@ body {
 
 .options {
   width: 200px;
-  height: 70%;
+  height: min-content;
 
   background: rgba(255,255,255,0.4);
   background-attachment: fixed;
@@ -203,6 +203,27 @@ input[type="checkbox"]#opponent:checked + label::before {
   -moz-transform: translateX(40px);
   -ms-transform: translateX(40px);
   transition: 250ms ease-in-out;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.control-buttons button {
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 6px 12px;
+  border: 2px solid #000;
+  border-radius: 6px;
+}
+
+.control-buttons button:hover {
+  background: rgba(255,255,255,0.65);
 }
 
 .board-container {
