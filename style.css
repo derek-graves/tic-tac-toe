@@ -63,10 +63,13 @@ button {
 body {
   width: 100vw;
   height: 100vh;
+  min-height: 500px;
+  min-width: 760px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(150deg,#FFEF78, #62C9B4 60%, #97D8F3);
+  overflow: scroll;
 }
 
 .game-container {
