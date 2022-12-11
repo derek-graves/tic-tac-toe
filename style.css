@@ -167,7 +167,6 @@ input[type="checkbox"]#opponent + label {
   width: 78px;
   height: 32px;
   border-radius: 6px;
-  background: rgba(0,0,0,0.25);
 }
 
 label span {
