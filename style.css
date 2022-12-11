@@ -198,7 +198,7 @@ input[type="checkbox"]#opponent + label::before {
   width: 30px;
   height: 24px;
   border-radius: 6px;
-  transition: 250ms ease-in-out;
+  transition: transform 250ms ease-in-out;
 }
 
 input[type="checkbox"]#opponent + label::after {
@@ -215,7 +215,7 @@ input[type="checkbox"]#opponent:checked + label::before {
   -webkit-transform: translateX(40px);
   -moz-transform: translateX(40px);
   -ms-transform: translateX(40px);
-  transition: 250ms ease-in-out;
+  transition: transform 250ms ease-in-out;
 }
 
 input[type="checkbox"]#opponent:disabled + label {
