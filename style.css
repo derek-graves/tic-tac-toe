@@ -226,6 +226,13 @@ input[type="checkbox"]#opponent:checked + label::before {
   background: rgba(255,255,255,0.65);
 }
 
+.control-buttons button:disabled {
+  color: #999;
+  border-color: #999;
+  background: rgba(255,255,255,0.4);
+  cursor: not-allowed;
+}
+
 .board-container {
   width: 400px;
   height: 400px;
