@@ -92,7 +92,6 @@ const gameController = (() => {
     _p2 = Player(player2.value, 'o');
     player1.disabled = true;
     player2.disabled = true;
-    _disableLabel();
 
     //set currentTurn
     _currentTurn = _p1.getPiece();
@@ -121,7 +120,6 @@ const gameController = (() => {
     player2.value = "";
     player1.disabled = false;
     player2.disabled = false;
-    _enableLabel();
 
     //reset opponent and enable opponent choice
     _opponent = false;
@@ -143,25 +141,6 @@ const gameController = (() => {
   //run _reset on reset button click
   const _resetButton = document.getElementById("reset");
   _resetButton.onclick = _reset;
-
-  //functions for correctly changing label color on disable/enable
-  const _disableLabel = () => {
-    const player1Label = document.getElementById("player1-label");
-    const player2Label = document.getElementById("player2-label");
-    if (!(player1Label.classList.contains("disabled-label"))) {
-      document.getElementById("player1-label").classList.add("disabled-label");
-      document.getElementById("player2-label").classList.add("disabled-label");
-    }
-  };
-
-  const _enableLabel = () => {
-    const player1Label = document.getElementById("player1-label");
-    const player2Label = document.getElementById("player2-label");
-    if (player1Label.classList.contains("disabled-label")) {
-      document.getElementById("player1-label").classList.remove("disabled-label");
-      document.getElementById("player2-label").classList.remove("disabled-label");
-    }
-  };
 
   return {getTurn};
 })();
