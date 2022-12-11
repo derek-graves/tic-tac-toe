@@ -140,6 +140,19 @@ input[type=text]:focus, input[type=text]:active, input[type=text]:focus-visible 
   background: rgba(255,255,255,0.65);
 }
 
+input[type=text]:disabled {
+  cursor: not-allowed;
+  user-select: none;
+  -webkit-user-select: none;
+  color: #999;
+  border-color: #999;
+  background: rgba(255,255,255,0.4);
+}
+
+.disabled-label {
+  color: #999;
+}
+
 .opponent-choice {
   display: flex;
   flex-direction: column;
@@ -203,6 +216,10 @@ input[type="checkbox"]#opponent:checked + label::before {
   -moz-transform: translateX(40px);
   -ms-transform: translateX(40px);
   transition: 250ms ease-in-out;
+}
+
+input[type="checkbox"]#opponent:disabled + label {
+  cursor: not-allowed;
 }
 
 .control-buttons {
