@@ -129,7 +129,7 @@ const gameController = (() => {
     //clear board and message
     gameBoard.resetBoard();
     displayController.renderBoard();
-    document.getElementById("message").textContent = "";
+    document.getElementById("status").textContent = "Pre-game";
     
     //reset current turn
     _currentTurn = null;
