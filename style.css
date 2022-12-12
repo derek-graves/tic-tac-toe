@@ -109,6 +109,25 @@ body {
   gap: 30px;
 }
 
+.status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#status {
+  width: 80%;
+  background: rgba(255,255,255,0.65);
+
+  font-family: Rubik;
+  font-weight: 600;
+  text-align: center;
+  
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
 .name:first-child {
   margin-bottom: 6px;
 }
