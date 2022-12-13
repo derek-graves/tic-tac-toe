@@ -37,8 +37,6 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  let  _p1 = Player("", "x");
-  let  _p2 = Player("", "o");
   let _opponent = false; //false for player v. player, true for player v. computer
   let _gameInProgress = false;
 
@@ -57,18 +55,23 @@ const gameController = (() => {
     const currentBoard = gameBoard.getBoard();
 
     //play move only if valid
+    move:
     if ((currentBoard[chosenRow][chosenCol] === "") && (_gameInProgress)) {
       gameBoard.setBoard(_currentTurn, chosenRow, chosenCol);
       displayController.renderBoard();
 
-      //check for win or tie, if so: display winner, reset game
+      //check for win or tie, if so: display winner, disable play
       const winner = winConditions.checkWin(_currentTurn, chosenRow, chosenCol);
       if (winner) {
-        console.log("We have a winner!") //replace later with message displayed on page
+        document.getElementById("status").textContent = `${_currentTurn} wins!`;
+        _gameInProgress = false;
+        break move;
       }
       const numMoves = currentBoard.flat().filter(slot => slot !== "").length;
       if (numMoves === 8) {
-        console.log("It's a tie!") //replace later with message displayed on page
+        document.getElementById("status").textContent = "It's a tie!";
+        _gameInProgress = false;
+        break move;
       }
       _nextTurn();
 
@@ -95,6 +98,9 @@ const gameController = (() => {
 
     //set currentTurn
     _currentTurn = _p1.getPiece();
+
+    //set status
+    document.getElementById("status").textContent = `${_currentTurn}'s turn! `;
 
     //pick mode and disable mode toggle
     const opponentToggle = document.getElementById("opponent");
@@ -126,13 +132,14 @@ const gameController = (() => {
     const opponentToggle = document.getElementById("opponent");
     opponentToggle.disabled = false;
 
-    //clear board and message
+    //clear board
     gameBoard.resetBoard();
     displayController.renderBoard();
-    document.getElementById("status").textContent = "Pre-game";
     
-    //reset current turn
+    //reset current turn and status
     _currentTurn = null;
+    document.getElementById("status").textContent = "Pre-game";
+
 
     //disable play, enable start
     _gameInProgress = false;
