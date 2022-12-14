@@ -45,6 +45,7 @@ const gameController = (() => {
   const getTurn = () => _currentTurn;
   const _nextTurn = () => {
     _currentTurn = (_currentTurn === _p1.getPiece()) ? _p2.getPiece() : _p1.getPiece();
+    document.getElementById("status").textContent = `${_currentTurn}'s turn! `;
   };
 
   //move logic
@@ -68,7 +69,7 @@ const gameController = (() => {
         break move;
       }
       const numMoves = currentBoard.flat().filter(slot => slot !== "").length;
-      if (numMoves === 8) {
+      if (numMoves === 9) {
         document.getElementById("status").textContent = "It's a tie!";
         _gameInProgress = false;
         break move;
