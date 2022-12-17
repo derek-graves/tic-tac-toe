@@ -220,6 +220,11 @@ const winConditions = (() => {
 const computerPlayer = (() => {
   //unbeatable AI built with minimax
 
+  //move factory function
+  const move = (row, column) => {
+    return {row, column};
+  };
+
   //playable (empty) slots
   const _findEmptySlots = (board) => {
     let empty = [];
