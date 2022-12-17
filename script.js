@@ -214,14 +214,25 @@ const winConditions = (() => {
     return (_horizontal(player, row) || _vertical(player, col) || _diagonal(player, row, col) || _antidiagonal(player, row, col));
   };
 
-  return {checkWin};
+  const checkAnyWin = () => {
+    for (let i = 0; i <= currentBoard.length; i++) {
+      for (let j = 0; j <= currentBoard.length; j++) {
+        if (checkWin("x", i, j) || checkWin("o", i, j)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  return {checkWin, checkAnyWin};
 })();
 
 const computerPlayer = (() => {
   //unbeatable AI built with minimax
 
-  //move factory function
-  const move = (row, column) => {
+  //factory function for hypothetical moves
+  const hypotheticalMove = (row, column) => {
     return {row, column};
   };
 
@@ -231,7 +242,7 @@ const computerPlayer = (() => {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board.length; j++) {
         if (board[i][j] === "") {
-          const slot = move(i,j);
+          const slot = hypotheticalMove(i,j);
           empty.push(slot);
         }
       }
