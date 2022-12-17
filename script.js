@@ -15,6 +15,10 @@ const gameBoard = (() => {
     _board[row][column] = player;
   }
 
+  const unsetBoard = (row, column) => {
+    _board[row][column] = "";
+  }
+
   const resetBoard = () => {
     _board = [["", "", ""], ["", "", ""], ["", "", ""]];
   }
