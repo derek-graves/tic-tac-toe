@@ -215,8 +215,8 @@ const winConditions = (() => {
   };
 
   const checkAnyWin = () => {
-    for (let i = 0; i <= currentBoard.length; i++) {
-      for (let j = 0; j <= currentBoard.length; j++) {
+    for (let i = 0; i < currentBoard.length; i++) {
+      for (let j = 0; j < currentBoard.length; j++) {
         if (checkWin("x", i, j) || checkWin("o", i, j)) {
           return true;
         }
