@@ -23,7 +23,7 @@ const gameBoard = (() => {
     _board = [["", "", ""], ["", "", ""], ["", "", ""]];
   }
 
-  return {getBoard, setBoard, resetBoard};
+  return {getBoard, setBoard, unsetBoard, resetBoard};
 })();
 
 const displayController = (() => {
