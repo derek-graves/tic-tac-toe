@@ -232,7 +232,7 @@ const computerPlayer = (() => {
   //unbeatable AI built with minimax
 
   //factory function for hypothetical moves
-  const hypotheticalMove = (row, column) => {
+  const _hypotheticalMove = (row, column) => {
     return {row, column};
   };
 
@@ -242,11 +242,48 @@ const computerPlayer = (() => {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board.length; j++) {
         if (board[i][j] === "") {
-          const slot = hypotheticalMove(i,j);
+          const slot = _hypotheticalMove(i,j);
           empty.push(slot);
         }
       }
     }
     return empty;
+  }
+
+  //the minimax function
+  const _minimax = (board, isAI) => {
+
+    //check for a win
+    if (winConditions.checkAnyWin()) {
+      if (isAI) {
+        return -1; //AI turn implies player won on the previous turn
+      } else {
+        return 1; //Not AI turn implies AI won on the previous turn
+      }
+    }
+  
+    //check for a tie
+    const playable = _findEmptySlots(board);
+    if (playable.length === 0) {
+      return 0;
+    }
+  
+    if (isAI) {
+      let optimal = -2;
+      for (const slot of playable) {
+        gameBoard.setBoard("o", slot.row, slot.column); //AI always 'o'
+        optimal = Math.max(optimal, _minimax(gameBoard.getBoard(), !isAI));
+        gameBoard.unsetBoard(slot.row, slot.column);
+      }
+      return optimal;
+    } else {
+      let optimal = 2;
+      for (const slot of playable) {
+        gameBoard.setBoard("x", slot.row, slot.column); //Player always 'x'
+        optimal = Math.min(optimal, _minimax(gameBoard.getBoard(), !isAI));
+        gameBoard.unsetBoard(slot.row, slot.column);
+      }
+      return optimal;
+    }
   }
 })();
