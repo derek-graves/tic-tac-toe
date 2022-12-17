@@ -229,10 +229,13 @@ const computerPlayer = (() => {
   const _findEmptySlots = (board) => {
     let empty = [];
     for (let i = 0; i < board.length; i++) {
-      if (board[i] === "") {
-        empty.push(i)
+      for (let j = 0; j < board.length; j++) {
+        if (board[i][j] === "") {
+          const slot = move(i,j);
+          empty.push(slot);
+        }
       }
     }
     return empty;
-}
+  }
 })();
