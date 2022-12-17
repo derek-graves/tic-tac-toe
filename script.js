@@ -214,5 +214,16 @@ const winConditions = (() => {
 })();
 
 const computerPlayer = (() => {
-  //minmax algorithm to create unbeatable AI
+  //unbeatable AI built with minimax
+
+  //playable (empty) slots
+  const _findEmptySlots = (board) => {
+    let empty = [];
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === "") {
+        empty.push(i)
+      }
+    }
+    return empty;
+}
 })();
