@@ -286,4 +286,20 @@ const computerPlayer = (() => {
       return optimal;
     }
   }
+
+  const findOptimalMove = (board) => {
+    const slots = findEmptySlots(board);
+    const scores = [];
+    slots.forEach(slot => {
+      gameBoard.setBoard("o", slot.row, slot.column); //only AI uses this
+      const score = _minimax(gameBoard.getBoard(), true);
+      scores.push(score);
+      gameBoard.unsetBoard(slot.row, slot.column);
+    });
+  
+    const best = Math.max(...scores);
+    const indexBest = scores.indexOf(best);
+    const optimalMove = slots[indexBest];
+    return optimalMove;
+  }
 })();
