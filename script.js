@@ -287,8 +287,8 @@ const computerPlayer = (() => {
     }
   }
 
-  const findOptimalMove = (board) => {
-    const slots = findEmptySlots(board);
+  const _findOptimalMove = (board) => {
+    const slots = _findEmptySlots(board);
     const scores = [];
     slots.forEach(slot => {
       gameBoard.setBoard("o", slot.row, slot.column); //only AI uses this
@@ -301,5 +301,11 @@ const computerPlayer = (() => {
     const indexBest = scores.indexOf(best);
     const optimalMove = slots[indexBest];
     return optimalMove;
+  }
+
+  const playOptimalMove = () => {
+    const currentBoard = gameBoard.getBoard();
+    optimalMove = _findOptimalMove(currentBoard);
+    gameBoard.setBoard("o", optimalMove.row, optimalMove.column);
   }
 })();
