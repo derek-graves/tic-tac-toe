@@ -41,7 +41,7 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  let _opponent = false; //false for player v. player, true for player v. computer
+  let _isComputerOpponent = false; //false for player v. player, true for player v. computer
   let _gameInProgress = false;
 
   //turn logic
@@ -109,7 +109,7 @@ const gameController = (() => {
 
     //pick mode and disable mode toggle
     const opponentToggle = document.getElementById("opponent");
-    _opponent = opponentToggle.checked;
+    _isComputerOpponent = opponentToggle.checked;
     opponentToggle.disabled = true;
 
     //disable start button and enable play
@@ -133,7 +133,7 @@ const gameController = (() => {
     player2.disabled = false;
 
     //reset opponent and enable opponent choice
-    _opponent = false;
+    _isComputerOpponent = false;
     const opponentToggle = document.getElementById("opponent");
     opponentToggle.disabled = false;
     opponentToggle.checked = false;
