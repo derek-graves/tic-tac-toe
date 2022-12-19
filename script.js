@@ -136,6 +136,7 @@ const gameController = (() => {
     _opponent = false;
     const opponentToggle = document.getElementById("opponent");
     opponentToggle.disabled = false;
+    opponentToggle.checked = false;
 
     //clear board
     gameBoard.resetBoard();
