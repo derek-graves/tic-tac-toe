@@ -304,7 +304,7 @@ const computerPlayer = (() => {
     }
   }
 
-  const _findOptimalMove = (board) => {
+  const findOptimalMove = (board) => {
     const slots = _findEmptySlots(board);
     const scores = [];
     slots.forEach(slot => {
@@ -320,11 +320,5 @@ const computerPlayer = (() => {
     return optimalMove;
   }
 
-  const playOptimalMove = () => {
-    const currentBoard = gameBoard.getBoard();
-    optimalMove = _findOptimalMove(currentBoard);
-    gameBoard.setBoard("o", optimalMove.row, optimalMove.column);
-  }
-
-  return {playOptimalMove};
+  return {findOptimalMove};
 })();
