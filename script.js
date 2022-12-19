@@ -154,6 +154,22 @@ const gameController = (() => {
   const _resetButton = document.getElementById("reset");
   _resetButton.onclick = _reset;
 
+  function _opponentChange() {
+    const opponentToggle = document.getElementById("opponent");
+    const player2 = document.getElementById("player2");
+    if (opponentToggle.checked) {
+      player2.value = "Computer";
+      player2.disabled = true;
+    } else {
+      player2.value = "";
+      player2.disabled = false;
+    }
+  }
+
+  //run _reset on reset button click
+  const _opponentToggleButton = document.getElementById("opponent");
+  _opponentToggleButton.onclick = _opponentChange;
+
   return {getTurn};
 })();
 
@@ -308,4 +324,6 @@ const computerPlayer = (() => {
     optimalMove = _findOptimalMove(currentBoard);
     gameBoard.setBoard("o", optimalMove.row, optimalMove.column);
   }
+
+  return {playOptimalMove};
 })();
