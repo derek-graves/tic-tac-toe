@@ -79,13 +79,11 @@ const gameController = (() => {
         break move;
       }
       _nextTurn();
-      console.log("x played"); //delete later
 
       //play computer move, if necessary
       if (_isComputerOpponent && _currentTurn === "o" && _gameInProgress) {
         computerPlayer.playOptimalMove();
         _nextTurn();
-        console.log('o played'); //delte later
       }
 
     } else {
