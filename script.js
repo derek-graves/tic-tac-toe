@@ -41,7 +41,7 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
-  let _isComputerOpponent = false; //false for player v. player, true for player v. computer
+  let _isComputerOpponent = false;
   let _gameInProgress = false;
 
   //turn logic
@@ -52,38 +52,53 @@ const gameController = (() => {
     document.getElementById("status").textContent = `${_currentTurn}'s turn! `;
   };
 
+  //game end logic (win logic in separate module)
+  function _checkGameOver(board, player, row, column) {
+    const isWinner = winConditions.checkWin(player, row, column);
+    if (isWinner) {
+      document.getElementById("status").textContent = `${player} wins!`;
+      _gameInProgress = false;
+      return true;
+    }
+    const numMoves = board.flat().filter(slot => slot !== "").length;
+    if (numMoves === 9) {
+      document.getElementById("status").textContent = "It's a tie!";
+      _gameInProgress = false;
+      return true;
+    }
+    _nextTurn();
+  }
+
   //move logic
   function _playMove() {
-    const currentBoard = gameBoard.getBoard();
+    const playerTurnBoard = gameBoard.getBoard();
     const chosenSlot = this.id.slice(-2);
     const chosenRow = chosenSlot.slice(0,1);
     const chosenCol = chosenSlot.slice(-1);
 
     //play move only if valid
     move:
-    if ((currentBoard[chosenRow][chosenCol] === "") && (_gameInProgress)) {
+    if ((playerTurnBoard[chosenRow][chosenCol] === "") && (_gameInProgress)) {
       gameBoard.setBoard(_currentTurn, chosenRow, chosenCol);
       displayController.renderBoard();
 
       //check for win or tie, if so: display winner, disable play
-      const winner = winConditions.checkWin(_currentTurn, chosenRow, chosenCol);
-      if (winner) {
-        document.getElementById("status").textContent = `${_currentTurn} wins!`;
-        _gameInProgress = false;
+      let gameOver = _checkGameOver(playerTurnBoard, _currentTurn, chosenRow, chosenCol);
+      if (gameOver) {
         break move;
       }
-      const numMoves = currentBoard.flat().filter(slot => slot !== "").length;
-      if (numMoves === 9) {
-        document.getElementById("status").textContent = "It's a tie!";
-        _gameInProgress = false;
-        break move;
-      }
-      _nextTurn();
 
       //play computer move, if necessary
       if (_isComputerOpponent && _currentTurn === "o" && _gameInProgress) {
-        computerPlayer.playOptimalMove();
-        _nextTurn();
+        const aiTurnBoard = gameBoard.getBoard();
+        const optimalMove = computerPlayer.minimax(aiTurnBoard, _currentTurn);
+        gameBoard.setBoard(_currentTurn, optimalMove.address.row, optimalMove.address.column);
+        displayController.renderBoard();
+        
+        gameOver = _checkGameOver(aiTurnBoard, _currentTurn, optimalMove.address.row, optimalMove.address.column);
+        if (gameOver) {
+          break move;
+        }
       }
 
     } else {
@@ -268,7 +283,7 @@ const computerPlayer = (() => {
   }
 
   //the minimax function
-  const _minimax = (board, player) => {
+  const minimax = (board, player) => {
     let availableSlots = _findEmptySlots(board);
   
     //check for a win or tie
@@ -291,10 +306,10 @@ const computerPlayer = (() => {
       //evaluate minimax for the requisite player
       //AI is always o; player is always x
       if (player === "o") {
-        let result = _minimax(board, "x");
+        let result = minimax(board, "x");
         move.score = result.score;
       } else {
-        let result = _minimax(board, "o");
+        let result = minimax(board, "o");
         move.score = result.score;
       }
   
@@ -327,27 +342,5 @@ const computerPlayer = (() => {
     return optimalMove;
   }
 
-  const playOptimalMove = () => {
-    const currentBoard = gameBoard.getBoard();
-    const currentTurn = gameController.getTurn();
-    const optimalMove = _minimax(currentBoard, currentTurn);
-    gameBoard.setBoard(currentTurn, optimalMove.address.row, optimalMove.address.column);
-    displayController.renderBoard();
-
-    //check for win or tie, if so: display winner, disable play
-    const winner = winConditions.checkWin(currentTurn, optimalMove.address.row, optimalMove.address.column);
-    if (winner) {
-      document.getElementById("status").textContent = `${currentTurn} wins!`;
-      _gameInProgress = false;
-      return;
-    }
-    const numMoves = currentBoard.flat().filter(slot => slot !== "").length;
-    if (numMoves === 9) {
-      document.getElementById("status").textContent = "It's a tie!";
-      _gameInProgress = false;
-      return;
-    }
-  }
-
-  return {playOptimalMove};
+  return {minimax};
 })();
