@@ -271,7 +271,7 @@ const computerPlayer = (() => {
 
   //the minimax function
   const _minimax = (board, player) => {
-    let availableSlots = findEmptySlots(board);
+    let availableSlots = _findEmptySlots(board);
   
     //check for a win or tie
     if (winConditions.checkAnyWin("x")) {
@@ -293,10 +293,10 @@ const computerPlayer = (() => {
       //evaluate minimax for the requisite player
       //AI is always o; player is always x
       if (player === "o") {
-        let result = minimax(board, "x");
+        let result = _minimax(board, "x");
         move.score = result.score;
       } else {
-        let result = minimax(board, "o");
+        let result = _minimax(board, "o");
         move.score = result.score;
       }
   
@@ -331,13 +331,13 @@ const computerPlayer = (() => {
 
   const playOptimalMove = () => {
     const currentBoard = gameBoard.getBoard();
-    const chosenSlot = _findOptimalMove(currentBoard);
     const currentTurn = gameController.getTurn();
-    gameBoard.setBoard(currentTurn, chosenSlot.row, chosenSlot.column);
+    const optimalMove = _minimax(currentBoard, currentTurn);
+    gameBoard.setBoard(currentTurn, optimalMove.address.row, optimalMove.address.column);
     displayController.renderBoard();
 
     //check for win or tie, if so: display winner, disable play
-    const winner = winConditions.checkWin(currentTurn, chosenSlot.row, chosenSlot.column);
+    const winner = winConditions.checkWin(currentTurn, optimalMove.address.row, optimalMove.address.column);
     if (winner) {
       document.getElementById("status").textContent = `${currentTurn} wins!`;
       _gameInProgress = false;
