@@ -256,7 +256,6 @@ const winConditions = (() => {
 const computerPlayer = (() => {
   //unbeatable AI built with minimax
 
-  //playable (empty) slots
   const _findEmptySlots = (board) => {
     let empty = [];
     for (let i = 0; i < board.length; i++) {
@@ -271,55 +270,62 @@ const computerPlayer = (() => {
   }
 
   //the minimax function
-  const _minimax = (board, isAI) => {
-
-    //check for a win
-    if (winConditions.checkAnyWin()) {
-      if (isAI) {
-        return -1; //AI turn implies player won on the previous turn
+  const _minimax = (board, player) => {
+    let availableSlots = findEmptySlots(board);
+  
+    //check for a win or tie
+    if (winConditions.checkAnyWin("x")) {
+      return {score: -1}; //player always x
+    } else if (winConditions.checkAnyWin("o")) {
+      return {score: 1}; //AI always o
+    } else if (availableSlots.length === 0) {
+      return {score: 0};
+    }
+  
+    let potentialMoves = [];
+    for (const slot of availableSlots) {
+      let move = {};
+      move.address = slot;
+  
+      //temporarily play move to allow for evaluation
+      gameBoard.setBoard(player, slot.row, slot.column);
+  
+      //evaluate minimax for the requisite player
+      //AI is always o; player is always x
+      if (player === "o") {
+        let result = minimax(board, "x");
+        move.score = result.score;
       } else {
-        return 1; //Not AI turn implies AI won on the previous turn
+        let result = minimax(board, "o");
+        move.score = result.score;
       }
-    }
   
-    //check for a tie
-    const playable = _findEmptySlots(board);
-    if (playable.length === 0) {
-      return 0;
-    }
-  
-    if (isAI) {
-      let optimal = -2;
-      for (const slot of playable) {
-        gameBoard.setBoard("o", slot.row, slot.column); //AI always 'o'
-        optimal = Math.max(optimal, _minimax(gameBoard.getBoard(), !isAI));
-        gameBoard.unsetBoard(slot.row, slot.column);
-      }
-      return optimal;
-    } else {
-      let optimal = 2;
-      for (const slot of playable) {
-        gameBoard.setBoard("x", slot.row, slot.column); //Player always 'x'
-        optimal = Math.min(optimal, _minimax(gameBoard.getBoard(), !isAI));
-        gameBoard.unsetBoard(slot.row, slot.column);
-      }
-      return optimal;
-    }
-  }
-
-  const _findOptimalMove = (board) => {
-    const slots = _findEmptySlots(board);
-    const scores = [];
-    slots.forEach(slot => {
-      gameBoard.setBoard("o", slot.row, slot.column); //only AI uses this
-      const score = _minimax(gameBoard.getBoard(), true);
-      scores.push(score);
+      //undo temporary move
       gameBoard.unsetBoard(slot.row, slot.column);
-    });
   
-    const best = Math.max(...scores);
-    const indexBest = scores.indexOf(best);
-    const optimalMove = slots[indexBest];
+      potentialMoves.push(move);
+    }
+  
+    //maximize on AI move; minimize on player move
+    let optimalMove;
+    if (player === "o") {
+      let optimalScore = -2;
+      for (const move of potentialMoves) {
+        if (move.score > optimalScore) {
+          optimalScore = move.score;
+          optimalMove = move;
+        }
+      }
+    } else {
+      let optimalScore = 2;
+      for (const move of potentialMoves) {
+        if (move.score < optimalScore) {
+          optimalScore = move.score;
+          optimalMove = move;
+        }
+      }
+    }
+  
     return optimalMove;
   }
 
