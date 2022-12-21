@@ -54,7 +54,7 @@ const gameController = (() => {
 
   //game end logic (win logic in separate module)
   function _checkGameOver(board, player, row, column) {
-    const isWinner = winConditions.checkWin(player, row, column);
+    const isWinner = winConditions.checkWin(board, player, row, column);
     if (isWinner) {
       document.getElementById("status").textContent = `${player} wins!`;
       _gameInProgress = false;
@@ -196,11 +196,9 @@ const gameController = (() => {
 })();
 
 const winConditions = (() => {
-  const currentBoard = gameBoard.getBoard();
-  
-  const _horizontal = (player, row) => {
+  const _horizontal = (board, player, row) => {
     for (let i = 0; i <= 2; i++) {
-      if (currentBoard[row][i] !== player) {
+      if (board[row][i] !== player) {
         return false;
       }
       if (i == 2) {
@@ -209,9 +207,9 @@ const winConditions = (() => {
     }
   };
 
-  const _vertical = (player, col) => {
+  const _vertical = (board, player, col) => {
     for (let i = 0; i <= 2; i++) {
-      if (currentBoard[i][col] !== player) {
+      if (board[i][col] !== player) {
         return false;
       }
       if (i == 2) {
@@ -220,10 +218,10 @@ const winConditions = (() => {
     }
   };
 
-  const _diagonal = (player, row, col) => {
+  const _diagonal = (board, player, row, col) => {
     if (row === col) {
       for (let i = 0; i <= 2; i++) {
-        if (currentBoard[i][i] !== player) {
+        if (board[i][i] !== player) {
           return false;
         }
         if (i == 2) {
@@ -234,10 +232,10 @@ const winConditions = (() => {
     return false;
   };
 
-  const _antidiagonal = (player, row, col) => {
+  const _antidiagonal = (board, player, row, col) => {
     if (parseInt(row) + parseInt(col) === 2) {
       for (let i = 0; i <= 2; i++) {
-        if (currentBoard[i][2 - i] !== player) {
+        if (board[i][2 - i] !== player) {
           return false;
         }
         if (i == 2) {
@@ -248,14 +246,14 @@ const winConditions = (() => {
     return false;
   };
 
-  const checkWin = (player, row, col) => {
-    return (_horizontal(player, row) || _vertical(player, col) || _diagonal(player, row, col) || _antidiagonal(player, row, col));
+  const checkWin = (board, player, row, col) => {
+    return (_horizontal(board, player, row) || _vertical(board, player, col) || _diagonal(board, player, row, col) || _antidiagonal(board, player, row, col));
   };
 
-  const checkAnyWin = (player) => {
-    for (let i = 0; i < currentBoard.length; i++) {
-      for (let j = 0; j < currentBoard.length; j++) {
-        if (checkWin(player, i, j)) {
+  const checkAnyWin = (board, player) => {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+        if (checkWin(board, player, i, j)) {
           return true;
         }
       }
