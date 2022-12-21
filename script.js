@@ -54,10 +54,10 @@ const gameController = (() => {
 
   //move logic
   function _playMove() {
+    const currentBoard = gameBoard.getBoard();
     const chosenSlot = this.id.slice(-2);
     const chosenRow = chosenSlot.slice(0,1);
     const chosenCol = chosenSlot.slice(-1);
-    const currentBoard = gameBoard.getBoard();
 
     //play move only if valid
     move:
@@ -79,6 +79,14 @@ const gameController = (() => {
         break move;
       }
       _nextTurn();
+      console.log("x played"); //delete later
+
+      //play computer move, if necessary
+      if (_isComputerOpponent && _currentTurn === "o" && _gameInProgress) {
+        computerPlayer.playOptimalMove();
+        _nextTurn();
+        console.log('o played'); //delte later
+      }
 
     } else {
       console.log("Move invalid"); //replace later with message displayed on page
@@ -231,10 +239,10 @@ const winConditions = (() => {
     return (_horizontal(player, row) || _vertical(player, col) || _diagonal(player, row, col) || _antidiagonal(player, row, col));
   };
 
-  const checkAnyWin = () => {
+  const checkAnyWin = (player) => {
     for (let i = 0; i < currentBoard.length; i++) {
       for (let j = 0; j < currentBoard.length; j++) {
-        if (checkWin("x", i, j) || checkWin("o", i, j)) {
+        if (checkWin(player, i, j)) {
           return true;
         }
       }
@@ -248,18 +256,13 @@ const winConditions = (() => {
 const computerPlayer = (() => {
   //unbeatable AI built with minimax
 
-  //factory function for hypothetical moves
-  const _hypotheticalMove = (row, column) => {
-    return {row, column};
-  };
-
   //playable (empty) slots
   const _findEmptySlots = (board) => {
     let empty = [];
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board.length; j++) {
         if (board[i][j] === "") {
-          const slot = _hypotheticalMove(i,j);
+          const slot = {row: i, column: j}
           empty.push(slot);
         }
       }
@@ -304,7 +307,7 @@ const computerPlayer = (() => {
     }
   }
 
-  const findOptimalMove = (board) => {
+  const _findOptimalMove = (board) => {
     const slots = _findEmptySlots(board);
     const scores = [];
     slots.forEach(slot => {
@@ -320,5 +323,27 @@ const computerPlayer = (() => {
     return optimalMove;
   }
 
-  return {findOptimalMove};
+  const playOptimalMove = () => {
+    const currentBoard = gameBoard.getBoard();
+    const chosenSlot = _findOptimalMove(currentBoard);
+    const currentTurn = gameController.getTurn();
+    gameBoard.setBoard(currentTurn, chosenSlot.row, chosenSlot.column);
+    displayController.renderBoard();
+
+    //check for win or tie, if so: display winner, disable play
+    const winner = winConditions.checkWin(currentTurn, chosenSlot.row, chosenSlot.column);
+    if (winner) {
+      document.getElementById("status").textContent = `${currentTurn} wins!`;
+      _gameInProgress = false;
+      return;
+    }
+    const numMoves = currentBoard.flat().filter(slot => slot !== "").length;
+    if (numMoves === 9) {
+      document.getElementById("status").textContent = "It's a tie!";
+      _gameInProgress = false;
+      return;
+    }
+  }
+
+  return {playOptimalMove};
 })();
