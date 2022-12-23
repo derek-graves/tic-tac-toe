@@ -285,9 +285,9 @@ const computerPlayer = (() => {
     let availableSlots = _findEmptySlots(board);
   
     //check for a win or tie
-    if (winConditions.checkAnyWin("x")) {
+    if (winConditions.checkAnyWin(board, "x")) {
       return {score: -1}; //player always x
-    } else if (winConditions.checkAnyWin("o")) {
+    } else if (winConditions.checkAnyWin(board, "o")) {
       return {score: 1}; //AI always o
     } else if (availableSlots.length === 0) {
       return {score: 0};
