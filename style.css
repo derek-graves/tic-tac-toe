@@ -350,7 +350,7 @@ input[type="checkbox"]#opponent:disabled + label::after {
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   width: 350px;
-  height: 450px;
+  height: min-content;
   border-radius: 20px;
   padding: 40px 20px;
   background: #ddd;
@@ -358,7 +358,7 @@ input[type="checkbox"]#opponent:disabled + label::after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
 }
 
 #close {
@@ -388,4 +388,19 @@ input[type="checkbox"]#opponent:disabled + label::after {
 .modal p {
   font-family: Rubik;
   font-weight: 400;
+}
+
+#modal-begin {
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 6px 12px;
+  border: 2px solid #000;
+  border-radius: 6px;
+}
+
+#modal-begin:hover {
+  background: rgba(255,255,255,0.65);
+
 }
