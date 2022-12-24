@@ -359,17 +359,16 @@ input[type="checkbox"]#opponent:disabled + label::after {
   align-items: center;
 }
 
-/*
 #close {
   position: absolute;
-  left: 97%;
-  top: 1.5%;
-  transform: translate(-97%, -1.5%);
-  -webkit-transform: translate(-97%, -1.5%);
-  -moz-transform: translate(-97%, -1.5%);
-  -ms-transform: translate(-97%, -1.5%);
+  left: 96%;
+  top: 2%;
+  transform: translate(-96%, -2%);
+  -webkit-transform: translate(-96%, -2%);
+  -moz-transform: translate(-96%, -2%);
+  -ms-transform: translate(-96%, -2%);
   color: #888;
-  font-family: var(--library-family);
+  font-family: Rubik;
   font-size: 18px;
   font-weight: 600;
 }
@@ -378,6 +377,7 @@ input[type="checkbox"]#opponent:disabled + label::after {
   color: #000;
 }
 
+/*
 .modal-header-text {
   width: 100%;
   font-family: var(--header-family);
