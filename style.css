@@ -329,3 +329,59 @@ input[type="checkbox"]#opponent:disabled + label::after {
 #slot20, #slot21 {
   border-right: 3px solid #000;
 }
+
+/* modal */
+.modal-container {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  width: 350px;
+  height: 450px;
+  border-radius: 20px;
+  padding: 40px 20px;
+  background: #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*
+#close {
+  position: absolute;
+  left: 97%;
+  top: 1.5%;
+  transform: translate(-97%, -1.5%);
+  -webkit-transform: translate(-97%, -1.5%);
+  -moz-transform: translate(-97%, -1.5%);
+  -ms-transform: translate(-97%, -1.5%);
+  color: #888;
+  font-family: var(--library-family);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#close:hover {
+  color: #000;
+}
+
+.modal-header-text {
+  width: 100%;
+  font-family: var(--header-family);
+  font-size: 28px;
+  text-align: center;
+}
+*/
