@@ -356,7 +356,9 @@ input[type="checkbox"]#opponent:disabled + label::after {
   background: #ddd;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 
 #close {
@@ -377,11 +379,13 @@ input[type="checkbox"]#opponent:disabled + label::after {
   color: #000;
 }
 
-/*
-.modal-header-text {
-  width: 100%;
-  font-family: var(--header-family);
-  font-size: 28px;
-  text-align: center;
+.modal h1 {
+  font-family: Rubik;
+  font-weight: 600;
+  font-size: 40px;
 }
-*/
+
+.modal p {
+  font-family: Rubik;
+  font-weight: 400;
+}
