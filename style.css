@@ -331,7 +331,7 @@ input[type="checkbox"]#opponent:disabled + label::after {
 }
 
 /* modal */
-.modal-container {
+#modal-container {
   position: fixed;
   left: 0;
   top: 0;

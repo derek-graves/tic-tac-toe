@@ -342,3 +342,21 @@ const computerPlayer = (() => {
 
   return {minimax};
 })();
+
+const modalButtons = (() => {
+  const hideModal = () => {
+    const container = document.getElementById('modal-container');
+    container.classList.add('hidden');
+  };
+
+  const close = document.getElementById('close');
+  close.onclick = hideModal;
+
+  const modalBegin = document.getElementById('modal-begin');
+  modalBegin.onclick = hideModal;
+
+  const outsideModal = document.getElementById('modal-container');
+  outsideModal.onclick = hideModal;
+  
+  return(hideModal);
+})();
